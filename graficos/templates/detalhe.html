@@ -1,6 +1,8 @@
 <p>{{csvfile}}</p>
 {%for line in csvdict%}
-{% for value in line %} 
-<p>{{ value.Printer }}</p>
-{% endfor %}
+<div>
+<div>{{ line.Printer }}</div>
+<div>{{ line.User }}</div>
+<div>{{ line.Pages }}</div>
+</div>
 {% endfor %}

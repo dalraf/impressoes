@@ -14,5 +14,5 @@ import os
 
 def default(request):
     path="/home/daniel/csv"  # insert the path to your directory   
-    cvslist =os.listdir(path)   
+    cvslist = os.listdir(path)   
     return render(request,'listar.html', {'csvs': cvslist})

@@ -18,5 +18,6 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.default)
+    url(r'^$', views.default),
+    url(r'gerar/(?P<detalhe>.*)/$', views.gerar),
 ]

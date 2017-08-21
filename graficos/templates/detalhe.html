@@ -1,5 +1,6 @@
-{{csvfile}}
-{{csvdict}}
-{%for key,value in csvdict.items%}
-{{value}}
+<p>{{csvfile}}</p>
+{%for line in csvdict%}
+{% for value in line %} 
+<p>{{ value.Printer }}</p>
+{% endfor %}
 {% endfor %}

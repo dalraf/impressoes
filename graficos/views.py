@@ -52,3 +52,30 @@ def gerar(request, detalhe):
     return render(request,'detalhe.html', { 'arquivofonte': arquivofonte, 'dadosusuario': dadosusuariorder, 'dadosimpressora': dadosimpressoraorder })
 
 
+
+def plot(request, detalhe):
+    import random
+    import django
+    import datetime
+
+    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+    from matplotlib.figure import Figure
+    from matplotlib.dates import DateFormatter
+
+    import matplotlib.pyplot as plt
+
+    D = {'Label1':26, 'Label2': 17, 'Label3':30}
+
+    fig=Figure()
+    ax=fig.add_subplot(111)
+    ax.bar(range(1,len(D)+1), D.values(), align='center')
+    ax.set_title('Impressões por usuário')
+    ax.set_ylabel('Numero de páginas')
+    ax.set_xticklabels(D.keys())
+    ax.set_xticks(range(1,len(D)+1))
+    ax.set_xlim(0,4)
+    fig.autofmt_xdate()
+    canvas=FigureCanvas(fig)
+    response=django.http.HttpResponse(content_type='image/png')
+    canvas.print_png(response)
+    return response

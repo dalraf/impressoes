@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Data do arquivo</h1>
+<div class="col-md-4">
+<h3>Data do arquivo</h3>
 <table class="table table-bordered">
 {% for csv in csvs %}
 <tr>
@@ -11,4 +12,5 @@
 </tr>
 {% endfor %}
 </table>
+</div>
 {% endblock content %}

@@ -7,6 +7,10 @@ from django.http import HttpResponse
 
 from django.shortcuts import render
 
+from collections import OrderedDict
+
+from operator import itemgetter
+
 import re
 
 import os
@@ -28,6 +32,21 @@ def gerar(request, detalhe):
     csvdict = []
     for line in csvfileopen:
         csvdict.append(line)
-    return render(request,'detalhe.html', {'csvdict': list(csvdict), 'csvfile': csvfile})
+    
+    dadosusuario = {}
+    dadosimpressora = {}
+    for line in csvdict:
+        if line['User'] in dadosusuario:
+            dadosusuario[line['User']] = dadosusuario[line['User']] + int(line['Pages'])
+        else:
+            dadosusuario[line['User']] = int(line['Pages'])
+        if line['Printer'] in dadosimpressora:
+                dadosimpressora[line['Printer']] = dadosimpressora[line['Printer']] + int(line['Pages'])
+        else:
+            dadosimpressora[line['Printer']] = int(line['Pages'])
+    dadosusuariorder = OrderedDict(sorted(dadosusuario.items(), key=itemgetter(1), reverse=True))
+    dadosimpressoraorder = OrderedDict(sorted(dadosimpressora.items(), key=itemgetter(1), reverse=True))
+
+    return render(request,'detalhe.html', { 'dadosusuario': dadosusuariorder, 'dadosimpressora': dadosimpressoraorder })
 
 

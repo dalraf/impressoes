@@ -1,8 +1,17 @@
 <p>{{csvfile}}</p>
-{%for line in csvdict%}
-<div>
-<div>{{ line.Printer }}</div>
-<div>{{ line.User }}</div>
-<div>{{ line.Pages }}</div>
-</div>
+<table>
+{%for key, value in dadosusuario.items%}
+<tr>
+<td>{{ key }}</td>
+<td>{{ value }}</td>
+</tr>
 {% endfor %}
+</table>
+<table>
+    {%for key, value in dadosimpressora.items%}
+    <tr>
+    <td>{{ key }}</td>
+    <td>{{ value }}</td>
+    </tr>
+    {% endfor %}
+ </table>

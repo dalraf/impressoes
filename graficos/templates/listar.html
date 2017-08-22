@@ -1,3 +1,9 @@
+<table>
 {% for csv in csvs %}
-<a href="graficos/gerar/{{csv}}/">{{csv}}</a>
+<tr>
+    <td>
+        <a href="graficos/gerar/{{csv}}/">{{csv}}</a>
+    </td>
+</tr>
 {% endfor %}
+</table>

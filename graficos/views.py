@@ -17,6 +17,10 @@ import os
 
 import csv
 
+from .forms import CVSform
+
+from django.shortcuts import redirect
+
 # Create your views here.
 
 csv_diretorio="/home/daniel/csv"
@@ -91,3 +95,15 @@ def plot(request, detalhe, tipo):
     response=HttpResponse(content_type='image/png')
     canvas.print_png(response)
     return response
+
+def cvs_upload(request):
+    if request.method == 'POST':
+        form = CVSform(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('default')
+    else:
+        form = CVSform()
+    return render(request, 'csv_upload.html', {
+        'form': form
+    })

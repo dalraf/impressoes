@@ -18,7 +18,8 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.default),
+    url(r'^$', views.default, name='default'),
+    url(r'upload/', views.cvs_upload),
     url(r'report/(?P<detalhe>[0-9-]+)/$', views.report, name='report'),
     url(r'plot/(?P<detalhe>[0-9-]+)/(?P<tipo>[a-zA-Z]+)/$', views.plot, name='plot'),
 ]

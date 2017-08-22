@@ -21,6 +21,30 @@ import csv
 
 csv_diretorio="/home/daniel/csv"
 
+def get_dict_csv(tipo,daterange):
+    
+    csvfile = csv_diretorio + '/papercut-print-log-' + daterange + '.csv'
+    csvfileopen = csv.DictReader(open(csvfile).readlines()[1:], delimiter=str(u','),dialect=csv.excel)
+    csvdict = []
+    for line in csvfileopen:
+        csvdict.append(line)
+    
+    dadosdict = {}
+    for line in csvdict:
+        if tipo == "usuario":
+            if line['User'] in dadosdict:
+                dadosdict[line['User']] = dadosdict[line['User']] + ( int(line['Pages']) * int(line['Copies']) ) 
+            else:
+                dadosdict[line['User']] = ( int(line['Pages']) * int(line['Copies']) )
+        elif tipo == "impressora":
+            if line['Printer'] in dadosdict:
+                dadosdict[line['Printer']] = dadosdict[line['Printer']] + ( int(line['Pages']) * int(line['Copies']) ) 
+            else:
+                dadosdict[line['Printer']] = ( int(line['Pages']) * int(line['Copies']) ) 
+    dadosdict = OrderedDict(sorted(dadosdict.items(), key=itemgetter(1), reverse=True))
+    return dadosdict
+
+
 
 def default(request):
     path=csv_diretorio
@@ -29,29 +53,13 @@ def default(request):
 
 
 def gerar(request, detalhe):
-    csvfile = csv_diretorio + '/papercut-print-log-' + detalhe + '.csv'
-    csvfileopen = csv.DictReader(open(csvfile).readlines()[1:], delimiter=str(u','),dialect=csv.excel)
-    csvdict = []
-    for line in csvfileopen:
-        csvdict.append(line)
-    
-    dadosusuario = {}
-    dadosimpressora = {}
-    for line in csvdict:
-        if line['User'] in dadosusuario:
-            dadosusuario[line['User']] = dadosusuario[line['User']] + ( int(line['Pages']) * int(line['Copies']) ) 
-        else:
-            dadosusuario[line['User']] = ( int(line['Pages']) * int(line['Copies']) ) 
-        if line['Printer'] in dadosimpressora:
-                dadosimpressora[line['Printer']] = dadosimpressora[line['Printer']] + ( int(line['Pages']) * int(line['Copies']) ) 
-        else:
-            dadosimpressora[line['Printer']] = ( int(line['Pages']) * int(line['Copies']) ) 
-    dadosusuariorder = OrderedDict(sorted(dadosusuario.items(), key=itemgetter(1), reverse=True))
-    dadosimpressoraorder = OrderedDict(sorted(dadosimpressora.items(), key=itemgetter(1), reverse=True))
+
+    dadosusuario = get_dict_csv('usuario',detalhe)
+    dadosimpressora = get_dict_csv('impressora',detalhe)
 
     arquivofonte = csvfile.split('/')[-1]
 
-    return render(request,'detalhe.html', { 'arquivofonte': arquivofonte, 'dadosusuario': dadosusuariorder, 'dadosimpressora': dadosimpressoraorder })
+    return render(request,'detalhe.html', { 'arquivofonte': arquivofonte, 'dadosusuario': dadosusuario, 'dadosimpressora': dadosimpressora })
 
 
 

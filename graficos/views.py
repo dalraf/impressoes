@@ -39,13 +39,13 @@ def gerar(request, detalhe):
     dadosimpressora = {}
     for line in csvdict:
         if line['User'] in dadosusuario:
-            dadosusuario[line['User']] = dadosusuario[line['User']] + int(line['Pages'])
+            dadosusuario[line['User']] = dadosusuario[line['User']] + ( int(line['Pages']) * int(line['Copies']) ) 
         else:
-            dadosusuario[line['User']] = int(line['Pages'])
+            dadosusuario[line['User']] = ( int(line['Pages']) * int(line['Copies']) ) 
         if line['Printer'] in dadosimpressora:
-                dadosimpressora[line['Printer']] = dadosimpressora[line['Printer']] + int(line['Pages'])
+                dadosimpressora[line['Printer']] = dadosimpressora[line['Printer']] + ( int(line['Pages']) * int(line['Copies']) ) 
         else:
-            dadosimpressora[line['Printer']] = int(line['Pages'])
+            dadosimpressora[line['Printer']] = ( int(line['Pages']) * int(line['Copies']) ) 
     dadosusuariorder = OrderedDict(sorted(dadosusuario.items(), key=itemgetter(1), reverse=True))
     dadosimpressoraorder = OrderedDict(sorted(dadosimpressora.items(), key=itemgetter(1), reverse=True))
 

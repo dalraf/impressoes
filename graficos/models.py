@@ -7,5 +7,3 @@ from django.db import models
 
 from django.db import models
 
-class CVSFiles(models.Model):
-    cvs = models.FileField('Arquivo CSV',upload_to='.')

@@ -8,4 +8,4 @@ from django.db import models
 from django.db import models
 
 class CVSFiles(models.Model):
-    cvs = models.FileField(upload_to='documents/')
+    cvs = models.FileField(upload_to='.')

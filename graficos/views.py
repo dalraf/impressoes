@@ -54,14 +54,12 @@ def gerar(request, detalhe):
 
 
 def plot(request, detalhe):
-    import random
-    import django
-    import datetime
+    from django.http import HttpResponse
 
     from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+    
     from matplotlib.figure import Figure
-    from matplotlib.dates import DateFormatter
-
+    
     import matplotlib.pyplot as plt
 
     D = {'Label1':26, 'Label2': 17, 'Label3':30}
@@ -76,6 +74,6 @@ def plot(request, detalhe):
     ax.set_xlim(0,4)
     fig.autofmt_xdate()
     canvas=FigureCanvas(fig)
-    response=django.http.HttpResponse(content_type='image/png')
+    response=HttpResponse(content_type='image/png')
     canvas.print_png(response)
     return response

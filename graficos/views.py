@@ -81,7 +81,7 @@ def plot(request, detalhe, tipo):
     ax.set_ylabel('Numero de páginas')
     ax.set_xticklabels(dicionario_plot.keys())
     ax.set_xticks(range(1,len(dicionario_plot)+1))
-    ax.set_xlim(0,4)
+    ax.set_xlim(0,15)
     fig.autofmt_xdate()
     canvas=FigureCanvas(fig)
     response=HttpResponse(content_type='image/png')

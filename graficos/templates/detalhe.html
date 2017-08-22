@@ -1,5 +1,9 @@
-<p>{{csvfile}}</p>
-<table>
+{% extends 'base.html' %}
+
+{% block content %}
+<p><b>Referente ao arquivo:</b> <i>{{csvfile}}</i></p>
+<h1>Relatório por usuário</h1>
+<table class="table table-bordered">
 {%for key, value in dadosusuario.items%}
     <tr>
         <td>{{ key }}</td>
@@ -7,7 +11,8 @@
 </tr>
 {% endfor %}
 </table>
-<table>
+<h1>Relatório por impressora</h1>
+<table class="table table-bordered">
 {%for key, value in dadosimpressora.items%}
     <tr>
         <td>{{ key }}</td>
@@ -15,3 +20,4 @@
     </tr>
 {% endfor %}
  </table>
+ {% endblock content %}

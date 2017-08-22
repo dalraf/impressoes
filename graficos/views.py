@@ -47,6 +47,6 @@ def gerar(request, detalhe):
     dadosusuariorder = OrderedDict(sorted(dadosusuario.items(), key=itemgetter(1), reverse=True))
     dadosimpressoraorder = OrderedDict(sorted(dadosimpressora.items(), key=itemgetter(1), reverse=True))
 
-    return render(request,'detalhe.html', { 'dadosusuario': dadosusuariorder, 'dadosimpressora': dadosimpressoraorder })
+    return render(request,'detalhe.html', { 'csvfile': csvfile, 'dadosusuario': dadosusuariorder, 'dadosimpressora': dadosimpressoraorder })
 
 

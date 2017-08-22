@@ -73,15 +73,19 @@ def plot(request, detalhe, tipo):
     import matplotlib.pyplot as plt
 
     dicionario_plot = get_dict_csv(tipo,detalhe)
+    if tipo == 'usuario':
+        plot_title = 'Páginas por usuário'
+    elif tipo == 'impressora':
+        plot_title = 'Páginas por impressora'
 
     fig=Figure()
     ax=fig.add_subplot(111)
     ax.bar(range(1,len(dicionario_plot)+1), dicionario_plot.values(), align='center')
-    ax.set_title('Impressões por usuário')
-    ax.set_ylabel('Numero de páginas')
+    ax.set_title(plot_title)
+    ax.set_ylabel(plot_title)
     ax.set_xticklabels(dicionario_plot.keys())
     ax.set_xticks(range(1,len(dicionario_plot)+1))
-    ax.set_xlim(0,15)
+    ax.set_xlim(0,12)
     fig.autofmt_xdate()
     canvas=FigureCanvas(fig)
     response=HttpResponse(content_type='image/png')

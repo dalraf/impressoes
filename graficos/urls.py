@@ -19,6 +19,6 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.default),
-    url(r'report/(?P<detalhe>.*)/$', views.gerar),
-    url(r'plot/(?P<detalhe>.*)/(?P<tipo>.*)/$', views.plot),
+    url(r'report/(?P<detalhe>[0-9-]+)/$', views.report, name='report'),
+    url(r'plot/(?P<detalhe>[0-9-]+)/(?P<tipo>[a-zA-Z]+)/$', views.plot, name='plot'),
 ]

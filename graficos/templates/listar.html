@@ -7,7 +7,7 @@
 {% for csv in csvs %}
 <tr>
     <td>
-        <a href="printreport/report/{{csv}}/">{{csv}}</a>
+        <a href="{% url 'report' detalhe=csv  %}">{{csv}}</a>
     </td>
 </tr>
 {% endfor %}

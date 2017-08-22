@@ -52,14 +52,14 @@ def default(request):
     return render(request,'listar.html', {'csvs': cvslist})
 
 
-def gerar(request, detalhe):
+def report(request, detalhe):
 
     dadosusuario = get_dict_csv('usuario',detalhe)
     dadosimpressora = get_dict_csv('impressora',detalhe)
 
     arquivofonte = 'papercut-print-log-' + detalhe + '.csv'
 
-    return render(request,'detalhe.html', { 'arquivofonte': arquivofonte, 'dadosusuario': dadosusuario, 'dadosimpressora': dadosimpressora })
+    return render(request,'detalhe.html', { 'detalhe': detalhe, 'arquivofonte': arquivofonte, 'dadosusuario': dadosusuario, 'dadosimpressora': dadosimpressora })
 
 
 

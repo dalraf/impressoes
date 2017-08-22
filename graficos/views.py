@@ -57,13 +57,13 @@ def gerar(request, detalhe):
     dadosusuario = get_dict_csv('usuario',detalhe)
     dadosimpressora = get_dict_csv('impressora',detalhe)
 
-    arquivofonte = csvfile.split('/')[-1]
+    arquivofonte = 'papercut-print-log-' + detalhe + '.csv'
 
     return render(request,'detalhe.html', { 'arquivofonte': arquivofonte, 'dadosusuario': dadosusuario, 'dadosimpressora': dadosimpressora })
 
 
 
-def plot(request, detalhe):
+def plot(request, detalhe, tipo):
     from django.http import HttpResponse
 
     from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -72,15 +72,15 @@ def plot(request, detalhe):
     
     import matplotlib.pyplot as plt
 
-    D = {'Label1':26, 'Label2': 17, 'Label3':30}
+    dicionario_plot = get_dict_csv(tipo,detalhe)
 
     fig=Figure()
     ax=fig.add_subplot(111)
-    ax.bar(range(1,len(D)+1), D.values(), align='center')
+    ax.bar(range(1,len(dicionario_plot)+1), dicionario_plot.values(), align='center')
     ax.set_title('Impressões por usuário')
     ax.set_ylabel('Numero de páginas')
-    ax.set_xticklabels(D.keys())
-    ax.set_xticks(range(1,len(D)+1))
+    ax.set_xticklabels(dicionario_plot.keys())
+    ax.set_xticks(range(1,len(dicionario_plot)+1))
     ax.set_xlim(0,4)
     fig.autofmt_xdate()
     canvas=FigureCanvas(fig)

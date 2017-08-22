@@ -121,5 +121,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_URL = '/static/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/cvs')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/csv')
 MEDIA_URL = '/media/'

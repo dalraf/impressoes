@@ -6,11 +6,9 @@
 </div>
 <form method="post" enctype="multipart/form-data">
   <div class="row">
-    <div class="col-md-6">
-      {% csrf_token %}
-      <label class="btn btn-default">
-      <input type="file" name="csvfileupload">
-      </label>
+    <div class="col-md-10">
+        {% csrf_token %}
+        {{ form.as_p }}
     </div>
   </div>
   <div class="row">

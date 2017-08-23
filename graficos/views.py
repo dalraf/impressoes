@@ -23,6 +23,8 @@ from django.shortcuts import redirect
 
 from django.core.files.storage import FileSystemStorage
 
+from .forms import csvform
+
 # Create your views here.
 
 csv_diretorio = './static/csv/'
@@ -108,11 +110,13 @@ def plot(request, detalhe, tipo):
     return response
 
 def cvs_upload(request):
-    if request.method == 'POST'  and request.FILES['csvfileupload']:
-        csvfileupload = request.FILES['csvfileupload']
-        fs = FileSystemStorage()
-        filename = fs.save(csvfileupload.name, csvfileupload)
-        uploaded_file_url = fs.url(filename)
-        return redirect('default')
+    if request.method == 'POST':
+        form = csvform(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('default')
     else:
-        return render(request, 'csv_upload.html',)
+        form = csvform()
+    return render(request, 'csv_upload.html', {
+        'form': form
+    })

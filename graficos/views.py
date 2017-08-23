@@ -25,6 +25,8 @@ from django.core.files.storage import FileSystemStorage
 
 from .forms import csvform
 
+from .models import csv
+
 # Create your views here.
 
 csv_diretorio = './static/csv/'
@@ -65,11 +67,11 @@ def get_dict_csv(tipo,daterange):
 
 
 def default(request):
-    cvslist = [re.sub(r'^' + csv_diretorio + prefixo_csv + '([0-9-]+).' + sufixo_csv ,r'\1',w) for w in glob.glob(csv_diretorio + dir_filtro_csv )]
-    return render(request,'listar.html', {'csvs': cvslist})
+    csvs = csv.objects.all()
+    return render(request,'listar.html', {'csvs': csvs})
 
 
-def report(request, detalhe):
+def report(request, cooperativa, ano, mes):
 
     dadosusuario = get_dict_csv('usuario',detalhe)
     dadosimpressora = get_dict_csv('impressora',detalhe)
@@ -80,7 +82,7 @@ def report(request, detalhe):
 
 
 
-def plot(request, detalhe, tipo):
+def plot(request, cooperativa, ano, mes, tipo):
     from django.http import HttpResponse
 
     from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas

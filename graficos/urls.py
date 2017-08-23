@@ -20,6 +20,6 @@ from . import views
 urlpatterns = [
     url(r'^$', views.default, name='default'),
     url(r'upload/', views.cvs_upload, name='upload'),
-    url(r'report/(?P<detalhe>[0-9-]+)/$', views.report, name='report'),
-    url(r'plot/(?P<detalhe>[0-9-]+)/(?P<tipo>[a-zA-Z]+)/$', views.plot, name='plot'),
+    url(r'report/(?P<cooperativa>[0-9]+)/(?P<ano>[0-9]+)/(?P<mes>[0-9]+)/$', views.report, name='report'),
+    url(r'plot/(?P<cooperativa>[0-9]+)/(?P<ano>[0-9]+)/(?P<mes>[0-9]+)/(?P<tipo>[a-zA-Z]+)/$', views.plot, name='plot'),
 ]

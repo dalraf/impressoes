@@ -29,7 +29,7 @@ csv_diretorio = './static/csv/'
 
 prefixo_csv = 'papercut-print-log-'
 
-sufixo_csv = '.csv'
+sufixo_csv = 'csv'
 
 dir_filtro_csv = prefixo_csv + '*' + sufixo_csv
 
@@ -39,7 +39,7 @@ regexp_get_detalhe = '^' + prefixo_csv + '([0-9-]+).' + sufixo_csv
 
 def get_dict_csv(tipo,daterange):
     
-    csvfile = csv_diretorio + prefixo_csv + daterange + sufixo_csv
+    csvfile = csv_diretorio + prefixo_csv + daterange + '.' + sufixo_csv
     csvfileopen = csv.DictReader(open(csvfile).readlines()[1:], delimiter=str(u','),dialect=csv.excel)
     csvdict = []
     for line in csvfileopen:

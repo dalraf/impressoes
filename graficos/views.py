@@ -15,6 +15,8 @@ import re
 
 import os
 
+import glob
+
 import csv
 
 from django.shortcuts import redirect
@@ -23,11 +25,21 @@ from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 
-csv_diretorio="./static/csv"
+csv_diretorio = './static/csv/'
+
+prefixo_csv = 'papercut-print-log-'
+
+sufixo_csv = '.csv'
+
+dir_filtro_csv = prefixo_csv + '*' + sufixo_csv
+
+regexp_get_detalhe = '^' + prefixo_csv + '([0-9-]+).' + sufixo_csv 
+
+
 
 def get_dict_csv(tipo,daterange):
     
-    csvfile = csv_diretorio + '/papercut-print-log-' + daterange + '.csv'
+    csvfile = csv_diretorio + prefixo_csv + daterange + sufixo_csv
     csvfileopen = csv.DictReader(open(csvfile).readlines()[1:], delimiter=str(u','),dialect=csv.excel)
     csvdict = []
     for line in csvfileopen:
@@ -51,8 +63,7 @@ def get_dict_csv(tipo,daterange):
 
 
 def default(request):
-    path=csv_diretorio
-    cvslist = [re.sub(r'^papercut-print-log-([0-9-]+).csv',r'\1',w) for w in os.listdir(path)]
+    cvslist = [re.sub(r'^' + csv_diretorio + prefixo_csv + '([0-9-]+).' + sufixo_csv ,r'\1',w) for w in glob.glob(csv_diretorio + dir_filtro_csv )]
     return render(request,'listar.html', {'csvs': cvslist})
 
 
@@ -61,7 +72,7 @@ def report(request, detalhe):
     dadosusuario = get_dict_csv('usuario',detalhe)
     dadosimpressora = get_dict_csv('impressora',detalhe)
 
-    arquivofonte = 'papercut-print-log-' + detalhe + '.csv'
+    arquivofonte = prefixo_csv + detalhe + sufixo_csv
 
     return render(request,'detalhe.html', { 'detalhe': detalhe, 'arquivofonte': arquivofonte, 'dadosusuario': dadosusuario, 'dadosimpressora': dadosimpressora })
 

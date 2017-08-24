@@ -8,6 +8,9 @@
                 <td>
                     <a href="{% url 'report' cooperativa=csv.cooperativa pa=csv.pa ano=csv.ano mes=csv.mes  %}">{{csv.get_cooperativa_display}}-{{csv.get_pa_display}}-{{csv.get_ano_display}}-{{csv.get_mes_display}}</a>
                 </td>
+                <td>
+                    <a href="{% url 'deletecsv' cooperativa=csv.cooperativa pa=csv.pa ano=csv.ano mes=csv.mes  %}">deletar</a>
+                </td>
             </tr>
             {% endfor %}
         </table>

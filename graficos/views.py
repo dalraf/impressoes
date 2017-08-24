@@ -65,6 +65,12 @@ def default(request):
     return render(request,'listar.html', {'csvs': csvs})
 
 
+def deletecsv(request, cooperativa, pa, ano, mes):
+    csvquery = csvprint.objects.filter(cooperativa=cooperativa,pa=pa,ano=ano,mes=mes)
+    csvquery.delete()
+    return redirect('default')
+
+
 def report(request, cooperativa, pa, ano, mes):
 
     dadosusuario = get_dict_csv('usuario', cooperativa, pa, ano, mes)

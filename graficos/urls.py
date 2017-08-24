@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^$', views.default, name='default'),
     url(r'upload/', views.cvs_upload, name='upload'),
     url(r'report/(?P<cooperativa>[0-9]+)/(?P<pa>[0-9]+)/(?P<ano>[0-9]+)/(?P<mes>[0-9]+)/$', views.report, name='report'),
+    url(r'delete/(?P<cooperativa>[0-9]+)/(?P<pa>[0-9]+)/(?P<ano>[0-9]+)/(?P<mes>[0-9]+)/$', views.deletecsv, name='deletecsv'),
     url(r'plot/(?P<cooperativa>[0-9]+)/(?P<pa>[0-9]+)/(?P<ano>[0-9]+)/(?P<mes>[0-9]+)/(?P<tipo>[a-zA-Z]+)/$', views.plot, name='plot'),
 ]

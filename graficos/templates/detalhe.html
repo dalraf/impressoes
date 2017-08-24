@@ -1,7 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 <div class="row">
-    <div class="col-md-3 table-responsive">
-        <h4>Relatório por usuário</h4>
+    <div class="col-md-2 table-responsive">
+        <h5>Relatório por usuário</h5>
         <table class="table table-bordered table-striped">
             <thead class="thead-default" style="background-color: #e6f2ff">
                 <tr>
@@ -16,18 +16,18 @@
             <tbody>
                 {%for key, value in dadosusuario.items%}
                 <tr>
-                    <td><h6>{{ key }}</h6></td>
-                    <td><h6>{{ value }}</h6></td>
+                    <td><h6><small>{{ key }}</small></h6></td>
+                    <td><h6><small>{{ value }}</small></h6></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <img class="img-responsive" src="{% url 'plot' cooperativa=cooperativa pa=pa ano=ano mes=mes tipo='usuario' %}">
     </div>
-    <div class="col-md-3 table-responsive">
-        <h4>Relatório por impressora</h4>
+    <div class="col-md-2 table-responsive">
+        <h5>Relatório por impressora</h5>
         <table class="table table-bordered table-striped">
             <thead class="thead-default" style="background-color: #e6f2ff">
                 <tr>
@@ -42,14 +42,14 @@
             <tbody>
                 {%for key, value in dadosimpressora.items%}
                 <tr>
-                    <td><h6>{{ key }}</h6></td>
-                    <td><h6>{{ value }}</h6></td>
+                    <td><h6><small>{{ key }}</small></h6></td>
+                    <td><h6><small>{{ value }}</small></h6></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <img class="img-responsive" src="{% url 'plot' cooperativa=cooperativa pa=pa ano=ano mes=mes tipo='impressora' %}">
     </div>
 </div>

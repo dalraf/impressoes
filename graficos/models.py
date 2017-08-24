@@ -36,11 +36,21 @@ class csvprint(models.Model):
     (4117,'Credinova'),
     )
 
+    PA = (
+    (0,'Sede'),
+    (1,'Pa01'),
+    (2,'Pa02'),
+    (3,'Pa03'),
+    (3,'Pa04'),
+    )
+
     ano = models.IntegerField('Ano',choices=ANO)
     
     mes = models.IntegerField('Mês',choices=MES)
     
     cooperativa = models.IntegerField('Cooperativa',choices=COOPERATIVA)
+
+    pa = models.IntegerField('PA',choices=PA)
 
     csvfileref = models.FileField('Arquivo csv',upload_to='csv/')
 

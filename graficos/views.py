@@ -32,9 +32,9 @@ from django.conf import settings
 # Create your views here.
 
 
-def get_dict_csv(tipo, cooperativa, ano, mes):
+def get_dict_csv(tipo, cooperativa, pa, ano, mes):
     
-    csvquery = csvprint.objects.filter(cooperativa=cooperativa,ano=ano,mes=mes)[0]
+    csvquery = csvprint.objects.filter(cooperativa=cooperativa,pa=pa,ano=ano,mes=mes)[0]
 
     csvfile = settings.MEDIA_ROOT + "/" + csvquery.csvfileref.name
     
@@ -65,16 +65,16 @@ def default(request):
     return render(request,'listar.html', {'csvs': csvs})
 
 
-def report(request, cooperativa, ano, mes):
+def report(request, cooperativa, pa, ano, mes):
 
-    dadosusuario = get_dict_csv('usuario', cooperativa, ano, mes)
-    dadosimpressora = get_dict_csv('impressora',cooperativa, ano, mes)
+    dadosusuario = get_dict_csv('usuario', cooperativa, pa, ano, mes)
+    dadosimpressora = get_dict_csv('impressora',cooperativa, pa, ano,  mes)
 
-    return render(request,'detalhe.html', { 'cooperativa': cooperativa, 'ano': ano, 'mes': mes, 'dadosusuario': dadosusuario, 'dadosimpressora': dadosimpressora })
+    return render(request,'detalhe.html', { 'cooperativa': cooperativa, 'pa': pa, 'ano': ano, 'mes': mes, 'dadosusuario': dadosusuario, 'dadosimpressora': dadosimpressora })
 
 
 
-def plot(request, cooperativa, ano, mes, tipo):
+def plot(request, cooperativa, pa, ano, mes, tipo):
     from django.http import HttpResponse
 
     from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -83,7 +83,7 @@ def plot(request, cooperativa, ano, mes, tipo):
     
     import matplotlib.pyplot as plt
 
-    dicionario_plot = get_dict_csv(tipo, cooperativa, ano, mes )
+    dicionario_plot = get_dict_csv(tipo, cooperativa, pa, ano, mes )
 
     if tipo == 'usuario':
         plot_title = 'Páginas por usuário (12+)'

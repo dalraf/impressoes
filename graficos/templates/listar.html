@@ -6,7 +6,7 @@
             {% for csv in csvs %}
             <tr>
                 <td>
-                    <a href="{% url 'report' cooperativa=csv.cooperativa ano=csv.ano mes=csv.mes  %}">{{csv.get_cooperativa_display}}-{{csv.get_ano_display}}-{{csv.get_mes_display}}</a>
+                    <a href="{% url 'report' cooperativa=csv.cooperativa pa=csv.pa ano=csv.ano mes=csv.mes  %}">{{csv.get_cooperativa_display}}-{{csv.get_pa_display}}-{{csv.get_ano_display}}-{{csv.get_mes_display}}</a>
                 </td>
             </tr>
             {% endfor %}

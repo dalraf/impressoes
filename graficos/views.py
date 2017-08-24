@@ -25,25 +25,19 @@ from django.core.files.storage import FileSystemStorage
 
 from .forms import csvform
 
-from .models import csv
+from .models import csvprint
+
+from django.conf import settings
 
 # Create your views here.
 
-csv_diretorio = './static/csv/'
 
-prefixo_csv = 'papercut-print-log-'
-
-sufixo_csv = 'csv'
-
-dir_filtro_csv = prefixo_csv + '*' + sufixo_csv
-
-regexp_get_detalhe = '^' + prefixo_csv + '([0-9-]+).' + sufixo_csv 
-
-
-
-def get_dict_csv(tipo,daterange):
+def get_dict_csv(tipo, cooperativa, ano, mes):
     
-    csvfile = csv_diretorio + prefixo_csv + daterange + '.' + sufixo_csv
+    csvquery = csvprint.objects.filter(cooperativa=cooperativa,ano=ano,mes=mes)[0]
+
+    csvfile = settings.MEDIA_ROOT + "/" + csvquery.csvfileref.name
+    
     csvfileopen = csv.DictReader(open(csvfile).readlines()[1:], delimiter=str(u','),dialect=csv.excel)
     csvdict = []
     for line in csvfileopen:
@@ -67,18 +61,16 @@ def get_dict_csv(tipo,daterange):
 
 
 def default(request):
-    csvs = csv.objects.all()
+    csvs = csvprint.objects.all()
     return render(request,'listar.html', {'csvs': csvs})
 
 
 def report(request, cooperativa, ano, mes):
 
-    dadosusuario = get_dict_csv('usuario',detalhe)
-    dadosimpressora = get_dict_csv('impressora',detalhe)
+    dadosusuario = get_dict_csv('usuario', cooperativa, ano, mes)
+    dadosimpressora = get_dict_csv('impressora',cooperativa, ano, mes)
 
-    arquivofonte = prefixo_csv + detalhe + sufixo_csv
-
-    return render(request,'detalhe.html', { 'detalhe': detalhe, 'arquivofonte': arquivofonte, 'dadosusuario': dadosusuario, 'dadosimpressora': dadosimpressora })
+    return render(request,'detalhe.html', { 'cooperativa': cooperativa, 'ano': ano, 'mes': mes, 'dadosusuario': dadosusuario, 'dadosimpressora': dadosimpressora })
 
 
 
@@ -91,7 +83,8 @@ def plot(request, cooperativa, ano, mes, tipo):
     
     import matplotlib.pyplot as plt
 
-    dicionario_plot = get_dict_csv(tipo,detalhe)
+    dicionario_plot = get_dict_csv(tipo, cooperativa, ano, mes )
+
     if tipo == 'usuario':
         plot_title = 'Páginas por usuário (12+)'
     elif tipo == 'impressora':

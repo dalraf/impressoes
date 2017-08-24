@@ -9,7 +9,7 @@ from django.db import models
 
 from django.db import models
 
-class csv(models.Model):    
+class csvprint(models.Model):    
     
     MES = (
     (0, 'Janeiro'),

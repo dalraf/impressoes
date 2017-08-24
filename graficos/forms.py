@@ -1,7 +1,7 @@
 from django import forms
-from .models import csv
+from .models import csvprint
 
 class csvform(forms.ModelForm):
     class Meta:
-        model = csv
+        model = csvprint
         fields = ('cooperativa', 'ano', 'mes', 'csvfileref' )

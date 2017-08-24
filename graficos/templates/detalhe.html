@@ -1,58 +1,56 @@
 {% extends 'base.html' %} {% block content %}
 <div class="row">
-    <div class="col-md-6">
-        <h3>Relatório por usuário</h3>
+    <div class="col-md-3 table-responsive">
+        <h4>Relatório por usuário</h4>
         <table class="table table-bordered table-striped">
             <thead class="thead-default" style="background-color: #e6f2ff">
                 <tr>
                     <th>
-                        Usuário
+                       <h6>Usuário</h6>
                     </th>
                     <th>
-                        Páginas
+                       <h6>Páginas</h6>
                     </th>
                 </tr>
             </thead>
             <tbody>
                 {%for key, value in dadosusuario.items%}
                 <tr>
-                    <td>{{ key }}</td>
-                    <td>{{ value }}</td>
+                    <td><h6>{{ key }}</h6></td>
+                    <td><h6>{{ value }}</h6></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    <div class="col-md-6">
-        <img src="{% url 'plot' cooperativa=cooperativa pa=pa ano=ano mes=mes tipo='usuario' %}">
+    <div class="col-md-3">
+        <img class="img-responsive" src="{% url 'plot' cooperativa=cooperativa pa=pa ano=ano mes=mes tipo='usuario' %}">
     </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <h3>Relatório por impressora</h3>
+    <div class="col-md-3 table-responsive">
+        <h4>Relatório por impressora</h4>
         <table class="table table-bordered table-striped">
             <thead class="thead-default" style="background-color: #e6f2ff">
                 <tr>
                     <th>
-                        Impressora
+                       <h6>Impressora</h6>
                     </th>
                     <th>
-                        Páginas
+                        <h6>Páginas</h6>
                     </th>
                 </tr>
             </thead>
             <tbody>
                 {%for key, value in dadosimpressora.items%}
                 <tr>
-                    <td>{{ key }}</td>
-                    <td>{{ value }}</td>
+                    <td><h6>{{ key }}</h6></td>
+                    <td><h6>{{ value }}</h6></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-    <div class="col-md-6">
-        <img src="{% url 'plot' cooperativa=cooperativa pa=pa ano=ano mes=mes tipo='impressora' %}">
+    <div class="col-md-3">
+        <img class="img-responsive" src="{% url 'plot' cooperativa=cooperativa pa=pa ano=ano mes=mes tipo='impressora' %}">
     </div>
 </div>
 {% endblock content %}

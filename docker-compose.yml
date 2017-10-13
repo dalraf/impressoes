@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  web:
+  printweb:
     build: .
     image: impressoes
     command: python manage.py runserver 0.0.0.0:8000

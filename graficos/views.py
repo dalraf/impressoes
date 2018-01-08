@@ -33,7 +33,6 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-@login_required
 def get_dict_csv(tipo, cooperativa, pa, ano, mes):
     
     csvquery = csvprint.objects.filter(cooperativa=cooperativa,pa=pa,ano=ano,mes=mes)[0]

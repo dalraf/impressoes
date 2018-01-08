@@ -41,7 +41,7 @@ class csvprint(models.Model):
     (1,'Pa01'),
     (2,'Pa02'),
     (3,'Pa03'),
-    (3,'Pa04'),
+    (4,'Pa04'),
     )
 
     ano = models.IntegerField('Ano',choices=ANO)

@@ -16,8 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    url(r'^login/$', auth_views.login,{'template_name': 'login.html'} ,name='login'),
+    url(r'^logout/$', auth_views.logout, {'next_page': '/printreport'}, name='logout'),
     url(r'^$', views.default, name='default'),
     url(r'upload/', views.cvs_upload, name='upload'),
     url(r'report/(?P<cooperativa>[0-9]+)/(?P<pa>[0-9]+)/(?P<ano>[0-9]+)/(?P<mes>[0-9]+)/$', views.report, name='report'),

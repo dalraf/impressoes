@@ -123,3 +123,7 @@ STATIC_URL = '/static/'
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/csv')
 MEDIA_URL = '/media/'
+
+LOGIN_URL = '/printreport/login/'
+LOGOUT_URL = '/printreport/logout/'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True

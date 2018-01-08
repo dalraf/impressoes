@@ -29,9 +29,11 @@ from .models import csvprint
 
 from django.conf import settings
 
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
-
+@login_required
 def get_dict_csv(tipo, cooperativa, pa, ano, mes):
     
     csvquery = csvprint.objects.filter(cooperativa=cooperativa,pa=pa,ano=ano,mes=mes)[0]
@@ -59,18 +61,18 @@ def get_dict_csv(tipo, cooperativa, pa, ano, mes):
     return dadosdict
 
 
-
+@login_required
 def default(request):
     csvs = csvprint.objects.all()
     return render(request,'listar.html', {'csvs': csvs})
 
-
+@login_required
 def deletecsv(request, cooperativa, pa, ano, mes):
     csvquery = csvprint.objects.filter(cooperativa=cooperativa,pa=pa,ano=ano,mes=mes)
     csvquery.delete()
     return redirect('default')
 
-
+@login_required
 def report(request, cooperativa, pa, ano, mes):
 
     dadosusuario = get_dict_csv('usuario', cooperativa, pa, ano, mes)
@@ -79,7 +81,7 @@ def report(request, cooperativa, pa, ano, mes):
     return render(request,'detalhe.html', { 'cooperativa': cooperativa, 'pa': pa, 'ano': ano, 'mes': mes, 'dadosusuario': dadosusuario, 'dadosimpressora': dadosimpressora })
 
 
-
+@login_required
 def plot(request, cooperativa, pa, ano, mes, tipo):
     from django.http import HttpResponse
 
@@ -110,6 +112,8 @@ def plot(request, cooperativa, pa, ano, mes, tipo):
     canvas.print_png(response)
     return response
 
+
+@login_required
 def cvs_upload(request):
     if request.method == 'POST':
         form = csvform(request.POST, request.FILES)
